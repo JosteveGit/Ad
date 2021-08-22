@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'portions/home_portion.dart';
+import 'portions/new_home_portion.dart';
+import 'portions/new_predict_portion.dart';
 import 'portions/predict_portion.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -21,8 +23,8 @@ class _DashboardPageState extends State<DashboardPage> {
           controller: controller,
           physics: NeverScrollableScrollPhysics(),
           children: [
-            HomePortion(),
-            PredictPortion()
+            NewHomePortion(),
+            NewPredictPortion()
           ],
         ),
       ),

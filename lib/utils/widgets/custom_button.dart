@@ -32,14 +32,13 @@ class CustomButton extends StatelessWidget {
           "$text",
           style: TextStyle(
             color: textColor ?? Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 14,
-            letterSpacing: 0.5,
+            fontWeight: FontWeight.w600,
+            fontSize: 13,
           ),
         ),
         style: ButtonStyle(
           padding: MaterialStateProperty.all(
-            EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+            EdgeInsets.symmetric(horizontal: 30, vertical: 18),
           ),
           elevation: MaterialStateProperty.all(0.0),
           backgroundColor: (validator == null ? true : validator())
@@ -47,7 +46,7 @@ class CustomButton extends StatelessWidget {
               : MaterialStateProperty.all((color ?? Colors.blue).withOpacity(0.5)),
           shape: MaterialStateProperty.all(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(30),
             ),
           ),
         ),
