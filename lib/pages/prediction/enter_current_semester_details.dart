@@ -129,7 +129,8 @@ class _EnterCurrentSemesterDetailsPageState
 
   void performPrediction() async {
     showLoader(context);
-    List<List<CourseDetails>> predictions = await compute<Pred, List<List<CourseDetails>>>(
+    List<List<CourseDetails>> predictions =
+        await compute<Pred, List<List<CourseDetails>>>(
       predict,
       Pred(
         courses,
@@ -138,13 +139,23 @@ class _EnterCurrentSemesterDetailsPageState
       ),
     );
     pop(context);
-    pushTo(
-      context,
-      PredictionTranscriptPage(
-        predictions: predictions,
-        aimingCGPA: widget.aimingCGPA,
-      ),
-    );
+    if (predictions.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+              "It's not possible, my dear."),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } else {
+      pushTo(
+        context,
+        PredictionTranscriptPage(
+          predictions: predictions,
+          aimingCGPA: widget.aimingCGPA,
+        ),
+      );
+    }
   }
 }
 
