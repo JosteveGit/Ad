@@ -33,6 +33,7 @@ class PredictionAlgorithm {
     List<double> previousSemesterGPA,
     double aimingCGPA,
   }) {
+    print("calling");
     List<List<CourseDetails>> coursesList = [];
     List<List<String>> permuationList = _Permutter.permute(courses.length);
     for (int k = 0; k < permuationList.length; k++) {

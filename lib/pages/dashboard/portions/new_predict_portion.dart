@@ -53,29 +53,31 @@ class _NewPredictPortionState extends State<NewPredictPortion>
                   SizedBox(height: 20),
                   Expanded(
                     child: Container(
-                      child: ListView(
-                        children: List.generate(
-                          semestersGpa.length,
-                          (index) {
-                            return Dismissible(
-                              key: UniqueKey(),
-                              onDismissed: (_) {
-                                setState(() {
-                                  semestersGpa.removeAt(index);
-                                });
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(bottom: 20),
-                                child: SemesterGpaItem(
-                                  initialGpa: semestersGpa[index],
-                                  semesterNumber: index + 1,
-                                  onChanged: (v) {
-                                    semestersGpa[index] = v;
-                                  },
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: List.generate(
+                            semestersGpa.length,
+                            (index) {
+                              return Dismissible(
+                                key: UniqueKey(),
+                                onDismissed: (_) {
+                                  setState(() {
+                                    semestersGpa.removeAt(index);
+                                  });
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 20),
+                                  child: SemesterGpaItem(
+                                    initialGpa: semestersGpa[index],
+                                    semesterNumber: index + 1,
+                                    onChanged: (v) {
+                                      semestersGpa[index] = v;
+                                    },
+                                  ),
                                 ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),

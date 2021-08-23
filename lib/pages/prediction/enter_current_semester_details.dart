@@ -6,6 +6,7 @@ import 'package:ad/utils/navigation/navigator.dart';
 import 'package:ad/utils/widgets/course_item_without_grade.dart';
 import 'package:ad/utils/widgets/custom_button.dart';
 import 'package:ad/utils/widgets/s_back_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'prediction_transcript_page.dart';
@@ -126,12 +127,15 @@ class _EnterCurrentSemesterDetailsPageState
     );
   }
 
-  void performPrediction() {
+  void performPrediction() async {
     showLoader(context);
-    List<List<CourseDetails>> predictions = PredictionAlgorithm.predict(
-      courses: courses,
-      aimingCGPA: widget.aimingCGPA,
-      previousSemesterGPA: widget.semestersGPA,
+    List<List<CourseDetails>> predictions = await compute<Pred, List<List<CourseDetails>>>(
+      predict,
+      Pred(
+        courses,
+        widget.aimingCGPA,
+        widget.semestersGPA,
+      ),
     );
     pop(context);
     pushTo(
@@ -142,6 +146,23 @@ class _EnterCurrentSemesterDetailsPageState
       ),
     );
   }
+}
 
-  List<CourseDetails> courses = [CourseDetails(code: "", unit: 1)];
+List<CourseDetails> courses = [CourseDetails(code: "", unit: 1)];
+
+List<List<CourseDetails>> predict(Pred m) {
+  List<List<CourseDetails>> predictions = PredictionAlgorithm.predict(
+    courses: m.courses,
+    aimingCGPA: m.aimingCGPA,
+    previousSemesterGPA: m.previousSemesterGPA,
+  );
+  return predictions;
+}
+
+class Pred {
+  final List<CourseDetails> courses;
+  final double aimingCGPA;
+  final List<double> previousSemesterGPA;
+
+  Pred(this.courses, this.aimingCGPA, this.previousSemesterGPA);
 }
