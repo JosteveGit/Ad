@@ -143,7 +143,8 @@ class _EnterCurrentSemesterDetailsPageState
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
-              "It's not possible, my dear."),
+            "It's not possible.",
+          ),
           backgroundColor: Colors.red,
         ),
       );
